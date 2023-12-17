@@ -11,7 +11,7 @@
 
   --Create a '.env' file and add the following environment variables:
        -'PORT'=3000
-       
+
   --inside src/config create a new file config.json and add the following json code:
 
   ```
@@ -27,3 +27,15 @@
   ```
 
   --once you hv setup the db-configuration details, go to src folder from ur terminal and execute `npx sequelize db:create`
+
+
+## DB DESIGN
+
+--Airplane table
+--Flights table
+--Airport table
+ 
+
+--One airplane getting used in many flights.
+--One airport serving multiple flights.
+--One city having many airports.
