@@ -2,7 +2,7 @@ const {CityRepo} = require('../repository/index');
 
 class CityService{
     constructor(cityRepo){
-        this.cityRepo=cityRepo;
+        this.cityRepo=new CityRepo();
     }
 
     async createCity(data){
@@ -15,9 +15,9 @@ class CityService{
         }
     }
 
-    async deleteCity(name){
+    async deleteCity(id){
         try{
-            const response= await this.cityRepo.deleteCity(name);
+            const response= await this.cityRepo.deleteCity(id);
             return response;
         }
         catch(error){
@@ -35,7 +35,7 @@ class CityService{
         }
     }
 
-    async getCity(){
+    async getCity(id){
         try{
             const response = await this.cityRepo.getCity(id);
             return response;
