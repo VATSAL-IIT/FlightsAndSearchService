@@ -41,3 +41,9 @@
 --One airplane getting used in many flights.
 --One airport serving multiple flights.
 --One city having many airports.
+
+
+
+## tables:
+City table -> id, name, created_at, updated_at
+Airport table -> id,name,city_id,created_at,updated_at
