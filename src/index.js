@@ -2,8 +2,8 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const CityRepo=require('./repository/city-repo');
 const APIRoutes= require('./routes/index')
-
-
+const {City}=require('./models/index')
+const {Airport}=require('./models/index')
 
 const setupAndStartServer = async()=>{
     //create express object
@@ -15,10 +15,12 @@ const setupAndStartServer = async()=>{
     app.use('/api',APIRoutes);
 
     app.listen(3000,()=>{
+        
         console.log(`Server started at ${PORT}`);
         const cityRepo=new CityRepo();
         // cityRepo.createCity({name:"New Delhi"});
         // cityRepo.deleteCity({name:"New Delhi"});
+        
     })
 }
 
