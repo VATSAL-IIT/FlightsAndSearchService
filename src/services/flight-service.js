@@ -7,6 +7,7 @@ class FlightService{
         this.airplaneRepo = new AirplaneRepo();
         this.flightRepo = new FlightRepo();
     }
+
     async createFlight(data){
         try{
             if(compareTime(data.arrivalTime,data.departureTime)){
@@ -21,6 +22,29 @@ class FlightService{
             console.log("Something went wrong in the service layer " + error );
         }
     }
+
+    
+    async getFlight(id){
+        try{
+            const flight=this.flightRepo.getFlight(id);
+            return flight;
+        }
+        catch(error){
+            console.log("Something wrong in the repository layer " + error);
+        }
+    }
+
+
+    async getFlights(data){
+        try{
+            const flights=this.flightRepo.getAllFlights(data);
+            return flights;
+        }
+        catch(error){
+            console.log("Something wrong in the repository layer " + error);
+        }
+    }
+
 }
 
 module.exports=FlightService;
