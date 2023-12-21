@@ -1,9 +1,14 @@
 const {Flight} = require('../models/index');
 const {Op} = require('sequelize');
+const CrudRepo = require('./crud-repo');
 
 
-class FlightRepo{
+class FlightRepo extends CrudRepo{
 
+    constructor(){
+        super(Flight);
+    }
+    
     #createFilter(data){
         let filter={};
         if(data.minimumPrice){
@@ -24,35 +29,8 @@ class FlightRepo{
         console.log(filter);
         return filter;
     } 
-
-
-    async createFlight(data){
-        try{
-            const flight=await Flight.create(data);
-            return flight;
-        }
-        catch(error){
-            console.log("Something went wrong in the repository layer "+ error);
-        }
-    }
-
-
-    async getFlight(id){
-        try{
-            const flight = await Flight.findOne({
-                where:{
-                    id:id
-                }
-            })
-            return flight;
-        }
-        catch(error){
-            console.log("Something wrong in the repository layer " + error);
-        }
-    }
-
-
-    async getAllFlights(data){
+    
+    async getAll(data){
         try{
             const filterObj=this.#createFilter(data);
             const flights = await Flight.findAll({

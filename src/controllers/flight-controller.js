@@ -4,7 +4,7 @@ const flightService=new FlightService();
 
 const create=async (req,res)=>{
     try{
-        const flight=await flightService.createFlight(req.body);
+        const flight=await flightService.create(req.body);
         return res.status(201).json({
             data:flight,
             success:true,
@@ -13,7 +13,7 @@ const create=async (req,res)=>{
         })
     }
     catch(error){
-        return res.status(501).json({
+        return res.status(500).json({
             data:{},
             success:false,
             message:'Not able to create a flight.',
@@ -25,8 +25,8 @@ const create=async (req,res)=>{
 
 const get=async (req,res)=>{
     try{
-        const flight=await flightService.getFlight(req.params.id);
-        return res.status(201).json({
+        const flight=await flightService.get(req.params.id);
+        return res.status(200).json({
             data:flight,
             success:true,
             message:'Retreived flight successfully.',
@@ -46,8 +46,8 @@ const get=async (req,res)=>{
 
 const getAll=async (req,res)=>{
     try{
-        const flights=await flightService.getFlights(req.body);
-        return res.status(201).json({
+        const flights=await flightService.getAll(req.body);
+        return res.status(200).json({
             data:flights,
             success:true,
             message:'Retreived flights successfully.',

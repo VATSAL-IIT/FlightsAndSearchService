@@ -1,50 +1,35 @@
+const CrudService = require('./crud-service');
 const {FlightRepo, AirplaneRepo} = require('../repository/index');
-const compareTime=require('../utils/timeComparator');
 
-class FlightService{
+
+class FlightService extends CrudService{
 
     constructor(){
-        this.airplaneRepo = new AirplaneRepo();
-        this.flightRepo = new FlightRepo();
+       super(new FlightRepo());
+       this.airplaneRepo=new AirplaneRepo();
     }
 
-    async createFlight(data){
+    async create(data){ 
         try{
-            if(compareTime(data.arrivalTime,data.departureTime)){
-            const airplane = await this.airplaneRepo.getAirplane(data.airplaneId);
-            const flight =await this.flightRepo.createFlight({...data,totalSeats:airplane.capacity})
+            const airplane = await this.airplaneRepo.get(data.airplaneId);
+            console.log(airplane);
+            const flight =await this.crudRepo.create(data);
             return flight;
-            }
-            else
-            throw {error: ' arrival-time cant be less than departure-time'}
         }
         catch(error){
             console.log("Something went wrong in the service layer " + error );
         }
     }
 
-    
-    async getFlight(id){
+    async getAll(data){
         try{
-            const flight=this.flightRepo.getFlight(id);
-            return flight;
+            const response = await this.crudRepo.getAll(data);
+            return response;
         }
         catch(error){
-            console.log("Something wrong in the repository layer " + error);
+            console.log("Something went wrong in the service layer " + error);
         }
     }
-
-
-    async getFlights(data){
-        try{
-            const flights=this.flightRepo.getAllFlights(data);
-            return flights;
-        }
-        catch(error){
-            console.log("Something wrong in the repository layer " + error);
-        }
-    }
-
 }
 
 module.exports=FlightService;
