@@ -1,67 +1,114 @@
-const {FlightService} = require('../services/index')
+const { FlightService} = require('../services/index');
+const {ServerErrorCodes,successCodes} = require('../utils/error-codes')
+const flightService= new FlightService();
 
-const flightService=new FlightService();
-
-const create=async (req,res)=>{
+//POST -> /flight
+const create = async (req,res)=>{
     try{
-        const flight=await flightService.create(req.body);
-        return res.status(201).json({
+        const flight = await flightService.create(req.body);
+        return res.status(successCodes.CREATED).json({
             data:flight,
             success:true,
-            message:'Created successfully.',
+            message:"Successfully created a flight",
             error:{}
-        })
+        });
     }
     catch(error){
-        return res.status(500).json({
+        return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
             data:{},
             success:false,
-            message:'Not able to create a flight.',
+            message:"Not able to create flight",
             error:error
         })
     }
 }
 
 
-const get=async (req,res)=>{
+//DELETE -> /flight/:id
+const destroy = async (req,res)=>{
     try{
-        const flight=await flightService.get(req.params.id);
-        return res.status(200).json({
-            data:flight,
-            success:true,
-            message:'Retreived flight successfully.',
+        const flight = await flightService.delete(req.params.id);
+        return res.status(successCodes.OK).json({
+            data: flight,
+            success: true,
+            message:" Successfull deleted the flight. ",
             error:{}
         })
     }
     catch(error){
-        return res.status(501).json({
+        return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
             data:{},
             success:false,
-            message:'Not able to  retreive the flight.',
+            message:"Not able to delete flight",
             error:error
         })
     }
 }
 
 
-const getAll=async (req,res)=>{
+//GET ->  /flight/:id
+const get = async(req,res)=>{
     try{
-        const flights=await flightService.getAll(req.body);
-        return res.status(200).json({
-            data:flights,
-            success:true,
-            message:'Retreived flights successfully.',
+        const flight = await flightService.get(req.params.id);
+        // console.log(req.params.id);
+        return res.status(successCodes.OK).json({
+            data: flight,
+            success: true,
+            message:" Successfull retreived the flight. ",
             error:{}
         })
     }
     catch(error){
-        return res.status(501).json({
+        return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
             data:{},
             success:false,
-            message:'Not able to retreive the flights.',
+            message:"Not able to retreive flight",
+            error:error
+        })
+    }
+
+}
+
+//PUT ->  /flight/:id
+const update = async(req,res)=>{
+    try{
+        const flight = await flightService.update(req.params.id,req.body);
+        return res.status(successCodes.OK).json({
+            data: flight,
+            success: true,
+            message:" Successfull updated the flight. ",
+            error:{}
+        })
+    }
+    catch(error){
+        return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
+            data:{},
+            success:false,
+            message:"Not able to update the flight",
             error:error
         })
     }
 }
 
-module.exports={create,get,getAll};
+const getAll = async(req,res) =>{
+    try{
+        const flights = await flightService.getAll(req.query);
+        return res.status(successCodes.OK).json({
+            data: flights,
+            success: true,
+            message:" Successfull retreived all the flights. ",
+            error:{}
+        })
+    }
+    catch(error){
+        return res.status(ServerErrorCodes.INTERNAL_SERVER_ERROR).json({
+            data:{},
+            success:false,
+            message:"Not able to retreive all flights.",
+            error:error
+        })
+    }
+}
+
+
+module.exports={create,update,destroy,get,getAll}

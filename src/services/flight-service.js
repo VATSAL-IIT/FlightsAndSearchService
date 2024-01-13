@@ -12,8 +12,7 @@ class FlightService extends CrudService{
     async create(data){ 
         try{
             const airplane = await this.airplaneRepo.get(data.airplaneId);
-            console.log(airplane);
-            const flight =await this.crudRepo.create(data);
+            const flight =await this.crudRepo.create({...data,totalSeats:90});
             return flight;
         }
         catch(error){

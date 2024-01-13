@@ -20,7 +20,7 @@ class AirportRepo extends CrudRepo{
                 })
                 return airports;
             }
-            const airports= await Airport.findAll()
+            const airports= await Airport.findAll();
             return airports;
         }
         catch(error){

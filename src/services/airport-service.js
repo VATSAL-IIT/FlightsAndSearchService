@@ -13,7 +13,7 @@ class AirportService extends CrudService{
             return response;
         }
         catch(error){
-            console.log("Something went wrong in the service layer " + error);
+            console.log("Something went wrong in the service layer" + error);
         }
     }
 }

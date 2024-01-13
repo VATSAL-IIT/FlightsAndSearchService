@@ -16,14 +16,12 @@ class CrudRepo{
         }
     }
 
-
     async get(id){
         console.log(id);
         try{
-            const modelData=await this.model.find({
+            const modelData=await this.model.findOne({
                 where:{id}
-            })
-            console.log(modelData);
+            });
             return modelData;
         }
         catch(error){
@@ -42,7 +40,6 @@ class CrudRepo{
             console.log("Something went wrong in the repository layer "+ error);
         }
     }
-
 
     async update(id,data){
         try{
@@ -66,4 +63,5 @@ class CrudRepo{
         }
     }
 }
+
 module.exports = CrudRepo;

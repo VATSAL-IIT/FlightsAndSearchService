@@ -8,10 +8,10 @@ const setupAndStartServer = async()=>{
     //create express object
     const app = express();
     const PORT = 3000;
-    // Middleware to parse JSON and URL-encoded request bodies
+    // Middleware to parse JSO cd AUthServiceN and URL-encoded request bodies
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use('/api',APIRoutes);
+    app.use('/flightservice/api',APIRoutes);
 
     app.listen(3000,()=>{
         console.log(`Server started at ${PORT}`);
